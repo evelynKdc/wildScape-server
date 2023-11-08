@@ -2,7 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const { connexion } = require("../db/config");
 const authRouter = require("../routes/auth");
-const userRouter = require("../routes/user")
+const userRouter = require("../routes/user");
+const categorieRouter = require("../routes/categorie");
+const guiaRouter = require("../routes/guia");
+const activitieRouter = require("../routes/activitie");
+const orderRouter = require("../routes/order");
 class Server {
   constructor() {
     this.app = express();
@@ -10,7 +14,11 @@ class Server {
 
     this.path = {
       auth: "/api/auth",
-      user: "/api/user"
+      user: "/api/user",
+      categorie: "/api/categorie",
+      guia: "/api/guia",
+      activitie: "/api/activitie",
+      order: "/api/order",
     };
     this.connectDb();
     this.middlewares();
@@ -33,6 +41,10 @@ class Server {
   routes() {
     this.app.use(this.path.auth, authRouter);
     this.app.use(this.path.user, userRouter);
+    this.app.use(this.path.categorie, categorieRouter);
+    this.app.use(this.path.guia, guiaRouter);
+    this.app.use(this.path.activitie, activitieRouter);
+    this.app.use(this.path.order, orderRouter);
   }
 
   listen() {
